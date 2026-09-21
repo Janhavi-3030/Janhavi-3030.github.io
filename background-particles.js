@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Rose Quartz Floating Petals & Sparkles Canvas Animation Engine
+   Interactive Data Constellation & Neural Network Canvas Background Engine
    ========================================================================== */
 
 (function () {
@@ -13,16 +13,21 @@
     let height = 0;
     let dpr = window.devicePixelRatio || 1;
 
-    let petals = [];
-    let sparkles = [];
+    let particles = [];
     let mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
 
     // Configuration
-    const PETAL_COUNT = 35;
-    const SPARKLE_COUNT = 45;
-    const PETAL_COLORS = ['#F7CAC9', '#F4B8C1', '#E89DA6', '#FDF2F4', '#F7D6E0'];
+    const PARTICLE_COUNT_DESKTOP = 70;
+    const PARTICLE_COUNT_MOBILE = 35;
+    const CONNECT_DISTANCE = 135;
+    const MOUSE_CONNECT_DISTANCE = 160;
 
-    // Resize Handler
+    const COLORS = [
+        { r: 6, g: 182, b: 212 },   // Cyan
+        { r: 139, g: 92, b: 246 },  // Violet
+        { r: 56, g: 189, b: 248 }   // Light Sky Blue
+    ];
+
     function resizeCanvas() {
         width = window.innerWidth;
         height = window.innerHeight;
@@ -36,174 +41,136 @@
         ctx.scale(dpr, dpr);
     }
 
-    // Mouse Movement Tracking
     window.addEventListener('mousemove', (e) => {
         mouse.targetX = e.clientX;
         mouse.targetY = e.clientY;
     });
 
-    // Petal Class
-    class Petal {
+    // Particle Class
+    class Particle {
         constructor() {
-            this.reset(true);
+            this.reset();
         }
 
-        reset(initial = false) {
+        reset() {
             this.x = Math.random() * width;
-            this.y = initial ? Math.random() * height : -30;
-            this.size = Math.random() * 12 + 8; // Size between 8px and 20px
-            this.speedY = Math.random() * 0.8 + 0.4;
-            this.speedX = Math.random() * 0.6 - 0.3;
-            this.rotation = Math.random() * Math.PI * 2;
-            this.rotationSpeed = (Math.random() - 0.5) * 0.02;
-            this.swaySpeed = Math.random() * 0.02 + 0.01;
-            this.swayAmplitude = Math.random() * 2 + 1;
-            this.swayAngle = Math.random() * Math.PI * 2;
-            this.color = PETAL_COLORS[Math.floor(Math.random() * PETAL_COLORS.length)];
-            this.opacity = Math.random() * 0.5 + 0.35;
-        }
-
-        update() {
-            this.swayAngle += this.swaySpeed;
-            this.x += this.speedX + Math.sin(this.swayAngle) * this.swayAmplitude * 0.3;
-            this.y += this.speedY;
-            this.rotation += this.rotationSpeed;
-
-            // Mouse Push / Drift Physics
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 120) {
-                const force = (120 - dist) / 120;
-                this.x -= (dx / dist) * force * 1.5;
-                this.y -= (dy / dist) * force * 1.5;
-            }
-
-            // Reset when out of screen bounds
-            if (this.y > height + 40 || this.x < -40 || this.x > width + 40) {
-                this.reset();
-            }
-        }
-
-        draw() {
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            ctx.rotate(this.rotation);
-            ctx.globalAlpha = this.opacity;
-            ctx.fillStyle = this.color;
-
-            // Organic Petal Shape via Bézier Curves
-            ctx.beginPath();
-            ctx.moveTo(0, -this.size / 2);
-            ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size / 2, this.size / 2, 0, this.size);
-            ctx.bezierCurveTo(-this.size / 2, this.size / 2, -this.size / 2, -this.size / 2, 0, -this.size / 2);
-            ctx.closePath();
-            ctx.fill();
-
-            // Inner Accent Line
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(0, -this.size / 4);
-            ctx.lineTo(0, this.size / 2);
-            ctx.stroke();
-
-            ctx.restore();
-        }
-    }
-
-    // Sparkle Particle Class
-    class Sparkle {
-        constructor() {
-            this.reset(true);
-        }
-
-        reset(initial = false) {
-            this.x = Math.random() * width;
-            this.y = initial ? Math.random() * height : Math.random() * height;
-            this.size = Math.random() * 3 + 1.5;
-            this.maxSize = this.size + Math.random() * 2;
-            this.pulseSpeed = Math.random() * 0.04 + 0.015;
+            this.y = Math.random() * height;
+            this.radius = Math.random() * 2 + 1;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.colorObj = COLORS[Math.floor(Math.random() * COLORS.length)];
+            this.alpha = Math.random() * 0.5 + 0.3;
+            this.pulseSpeed = Math.random() * 0.02 + 0.008;
             this.pulsePhase = Math.random() * Math.PI * 2;
-            this.alpha = Math.random() * 0.7 + 0.2;
-            this.color = '#FFFFFF';
         }
 
         update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Bounce off canvas edges
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+
+            // Subtle size pulsing
             this.pulsePhase += this.pulseSpeed;
-            this.currentSize = this.size + Math.sin(this.pulsePhase) * (this.maxSize - this.size);
-            this.currentAlpha = Math.max(0.1, Math.sin(this.pulsePhase) * 0.6 + 0.3);
+            this.currentRadius = this.radius + Math.sin(this.pulsePhase) * 0.5;
         }
 
         draw() {
             ctx.save();
             ctx.translate(this.x, this.y);
-            ctx.globalAlpha = this.currentAlpha;
+            ctx.globalAlpha = this.alpha;
 
-            // Soft Radial Glow
-            const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.currentSize * 2.5);
-            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-            gradient.addColorStop(0.4, 'rgba(247, 202, 201, 0.6)');
-            gradient.addColorStop(1, 'rgba(244, 184, 193, 0)');
+            // Soft radial glow around particle node
+            const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.currentRadius * 3);
+            gradient.addColorStop(0, `rgba(${this.colorObj.r}, ${this.colorObj.g}, ${this.colorObj.b}, 0.9)`);
+            gradient.addColorStop(1, `rgba(${this.colorObj.r}, ${this.colorObj.g}, ${this.colorObj.b}, 0)`);
 
             ctx.fillStyle = gradient;
             ctx.beginPath();
-            ctx.arc(0, 0, this.currentSize * 2.5, 0, Math.PI * 2);
+            ctx.arc(0, 0, this.currentRadius * 3, 0, Math.PI * 2);
             ctx.fill();
 
-            // 4-Point Star Burst Shape
-            ctx.fillStyle = '#FFFFFF';
+            // Core node
+            ctx.fillStyle = `rgb(${this.colorObj.r}, ${this.colorObj.g}, ${this.colorObj.b})`;
             ctx.beginPath();
-            for (let i = 0; i < 4; i++) {
-                ctx.rotate(Math.PI / 2);
-                ctx.lineTo(0, this.currentSize * 1.8);
-                ctx.lineTo(this.currentSize * 0.3, this.currentSize * 0.3);
-            }
+            ctx.arc(0, 0, this.currentRadius, 0, Math.PI * 2);
             ctx.fill();
 
             ctx.restore();
         }
     }
 
-    // Initialization
     function init() {
         resizeCanvas();
 
-        petals = [];
-        for (let i = 0; i < PETAL_COUNT; i++) {
-            petals.push(new Petal());
-        }
-
-        sparkles = [];
-        for (let i = 0; i < SPARKLE_COUNT; i++) {
-            sparkles.push(new Sparkle());
+        const count = width < 768 ? PARTICLE_COUNT_MOBILE : PARTICLE_COUNT_DESKTOP;
+        particles = [];
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
         }
     }
 
-    // Main Animation Loop
+    function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            const p1 = particles[i];
+
+            // Particle-to-Particle connections
+            for (let j = i + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const dx = p1.x - p2.x;
+                const dy = p1.y - p2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < CONNECT_DISTANCE) {
+                    const alpha = (1 - dist / CONNECT_DISTANCE) * 0.22;
+                    ctx.save();
+                    ctx.strokeStyle = `rgba(6, 182, 212, ${alpha})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+
+            // Mouse-to-Particle proximity connections
+            const mdx = p1.x - mouse.x;
+            const mdy = p1.y - mouse.y;
+            const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+
+            if (mdist < MOUSE_CONNECT_DISTANCE) {
+                const malpha = (1 - mdist / MOUSE_CONNECT_DISTANCE) * 0.45;
+                ctx.save();
+                ctx.strokeStyle = `rgba(139, 92, 246, ${malpha})`;
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+    }
+
     function animate() {
-        // Smooth lerp for mouse position
-        mouse.x += (mouse.targetX - mouse.x) * 0.08;
-        mouse.y += (mouse.targetY - mouse.y) * 0.08;
+        mouse.x += (mouse.targetX - mouse.x) * 0.1;
+        mouse.y += (mouse.targetY - mouse.y) * 0.1;
 
         ctx.clearRect(0, 0, width, height);
 
-        // Render Sparkles
-        sparkles.forEach(sparkle => {
-            sparkle.update();
-            sparkle.draw();
-        });
+        drawConnections();
 
-        // Render Petals
-        petals.forEach(petal => {
-            petal.update();
-            petal.draw();
+        particles.forEach(p => {
+            p.update();
+            p.draw();
         });
 
         requestAnimationFrame(animate);
     }
 
-    // Listeners
     window.addEventListener('resize', resizeCanvas);
     init();
     animate();
