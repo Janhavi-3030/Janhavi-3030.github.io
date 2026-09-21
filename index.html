@@ -13,7 +13,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,13 +21,13 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="dark-theme">
 
     <!-- Custom Fluid Interactive Cursor -->
     <div class="custom-cursor-dot" id="cursorDot"></div>
     <div class="custom-cursor-aura" id="cursorAura"></div>
 
-    <!-- Dynamic Canvas Background for Petals & Sparkles -->
+    <!-- Dynamic Canvas Background for Neural Network Data Mesh -->
     <canvas id="bgCanvas"></canvas>
 
     <!-- Header & Navigation -->
@@ -43,35 +43,25 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
 
-            <!-- Navigation Links & Badges -->
+            <!-- Navigation Links (Streamlined 4-5 items max) -->
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
-                    <li><a href="#hero" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li><a href="#about" class="nav-link"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
-                    <li><a href="#academic" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Academic Journey</a></li>
-                    <li><a href="#skills" class="nav-link"><i class="fa-solid fa-code"></i> Skills & Focus</a></li>
-                    <li><a href="#projects" class="nav-link"><i class="fa-solid fa-diagram-project"></i> Projects</a></li>
-                    <li><a href="#contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#academic" class="nav-link">Journey</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
                 </ul>
 
-                <!-- Dual Status Badges -->
-                <div class="header-status-badges">
-                    <div class="status-badge badge-work" title="Actively open to full-time roles">
-                        <span class="pulse-ring green"></span>
-                        <span class="badge-icon">🟢</span>
-                        <span class="badge-text">Open to Work</span>
-                    </div>
-                    <div class="status-badge badge-internship" title="Seeking Data Science & AI Internships">
-                        <span class="pulse-ring pink"></span>
-                        <span class="badge-icon">✨</span>
-                        <span class="badge-text">Available for Internships</span>
-                    </div>
+                <!-- Single Compact Status Pill -->
+                <div class="nav-status-pill">
+                    <span class="pulse-ring green"></span>
+                    <span class="pill-text">Open to Work</span>
                 </div>
 
                 <!-- CTA Button -->
-                <a href="#contact" class="btn btn-rose btn-sm nav-cta">
-                    <span>Get in Touch</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                <a href="#contact" class="btn btn-cyan btn-sm nav-cta">
+                    <span>Contact</span>
+                    <i class="fa-solid fa-paper-plane"></i>
                 </a>
             </div>
         </nav>
@@ -85,7 +75,7 @@
                 <div class="hero-grid">
                     <div class="hero-text-content">
                         <div class="hero-pill-tag fade-in">
-                            <span class="sparkle-icon">✨</span> Rose Quartz Interactive Portfolio
+                            <span class="sparkle-icon">⚡</span> Data Science &amp; Artificial Intelligence
                         </div>
 
                         <h1 class="hero-name fade-in">
@@ -94,43 +84,41 @@
                         </h1>
 
                         <h2 class="hero-tagline fade-in">
-                            Aspiring Data Scientist & AI Specialist
+                            Aspiring Data Scientist &amp; AI Specialist
                             <span class="tagline-subtitle">Bridging Business Analytics &amp; Artificial Intelligence</span>
                         </h2>
 
                         <p class="hero-bio fade-in">
-                            Transforming complex business datasets into predictive intelligence. Combining a solid foundation in Business Administration with cutting-edge Machine Learning and Deep Learning models to build scalable, data-driven solutions.
+                            Transforming complex datasets into predictive intelligence. Combining a solid foundation in Business Administration with cutting-edge Machine Learning and Deep Learning models to build scalable, data-driven solutions.
                         </p>
 
                         <!-- Hero Badges Display -->
                         <div class="hero-badges-container fade-in">
-                            <div class="status-badge badge-work large-badge">
+                            <div class="status-badge badge-work">
                                 <span class="pulse-ring green"></span>
-                                <span class="badge-icon">🟢</span>
                                 <span class="badge-text">Open to Work</span>
                             </div>
-                            <div class="status-badge badge-internship large-badge">
-                                <span class="pulse-ring pink"></span>
-                                <span class="badge-icon">✨</span>
-                                <span class="badge-text">Available for Internships</span>
+                            <div class="status-badge badge-internship">
+                                <span class="pulse-ring purple"></span>
+                                <span class="badge-text"> Available for Internships</span>
                             </div>
                         </div>
 
                         <!-- Action Buttons -->
                         <div class="hero-actions fade-in">
-                            <a href="#academic" class="btn btn-rose btn-lg">
-                                <i class="fa-solid fa-compass"></i>
-                                <span>Explore Journey</span>
+                            <a href="#projects" class="btn btn-cyan btn-lg">
+                                <i class="fa-solid fa-code-branch"></i>
+                                <span>View Projects</span>
                             </a>
                             <a href="#contact" class="btn btn-glass btn-lg">
-                                <i class="fa-solid fa-paper-plane"></i>
-                                <span>Contact Me</span>
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>Get in Touch</span>
                             </a>
                         </div>
 
                         <!-- Social Quick Links -->
                         <div class="hero-socials fade-in">
-                            <span class="social-label">Connect &amp; Collaborate:</span>
+                            <span class="social-label">Connect:</span>
                             <div class="social-icons">
                                 <a href="mailto:thakarejanhavi16@gmail.com" class="social-btn" title="Email Janhavi" aria-label="Email">
                                     <i class="fa-solid fa-envelope"></i>
@@ -148,7 +136,7 @@
                         </div>
                     </div>
 
-                    <!-- Hero Visual Card (3D Tilt Glass Card) -->
+                    <!-- Hero Profile Card (Clean Dark Card without floating badges) -->
                     <div class="hero-visual-wrapper fade-in">
                         <div class="hero-avatar-card glass-card tilt-card">
                             <div class="avatar-ring-outer">
@@ -161,28 +149,11 @@
 
                             <div class="hero-card-info">
                                 <h3 class="card-title">Janhavi V. Thakare</h3>
-                                <p class="card-role"><i class="fa-solid fa-brain text-accent"></i> M.Sc. AI & Data Science Candidate</p>
+                                <p class="card-role"><i class="fa-solid fa-brain text-accent-cyan"></i> M.Sc. AI & Data Science Candidate</p>
                                 <div class="card-tags">
                                     <span class="chip"><i class="fa-solid fa-chart-line"></i> Analytics</span>
-                                    <span class="chip"><i class="fa-solid fa-robot"></i> Machine Learning</span>
+                                    <span class="chip"><i class="fa-solid fa-microchip"></i> Machine Learning</span>
                                     <span class="chip"><i class="fa-solid fa-network-wired"></i> Deep Learning</span>
-                                </div>
-                            </div>
-
-                            <!-- Floating Glass Stat Cards -->
-                            <div class="stat-floating-card card-top-left">
-                                <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
-                                <div class="stat-data">
-                                    <span class="stat-value">2+</span>
-                                    <span class="stat-label">Academic Degrees</span>
-                                </div>
-                            </div>
-
-                            <div class="stat-floating-card card-bottom-right">
-                                <div class="stat-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                                <div class="stat-data">
-                                    <span class="stat-value">AI + BBA</span>
-                                    <span class="stat-label">Hybrid Expertise</span>
                                 </div>
                             </div>
                         </div>
@@ -204,29 +175,29 @@
                     <!-- Bio Narrative Card -->
                     <div class="about-bio-card glass-card tilt-card fade-in">
                         <div class="card-header-sparkle">
-                            <i class="fa-solid fa-sparkles text-accent"></i>
+                            <i class="fa-solid fa-bolt text-accent-cyan"></i>
                             <h3>The Hybrid Advantage</h3>
                         </div>
                         <p>
-                            I am an enthusiastic Data Science graduate student with a distinct academic background: a Bachelor's degree in <strong>Business Administration in Computer Applications (BBA-CA)</strong> combined with a Master's degree in <strong>Artificial Intelligence & Data Science (M.Sc. AI & DS)</strong>.
+                            I am a Data Science graduate student with a distinct academic background: a Bachelor's degree in <strong>Business Administration in Computer Applications (BBA-CA)</strong> combined with a Master's degree in <strong>Artificial Intelligence & Data Science (M.Sc. AI & DS)</strong>.
                         </p>
                         <p>
-                            This unique dual foundation allows me to look at data through two essential lenses: understanding <strong>strategic business needs and metrics</strong> while applying <strong>rigorous computational algorithms, predictive models, and deep learning techniques</strong> to solve them.
+                            This unique dual foundation allows me to view complex datasets through two essential lenses: understanding <strong>strategic business drivers &amp; executive goals</strong> while deploying <strong>computational algorithms, predictive models, and deep learning techniques</strong> to solve them.
                         </p>
                         <p>
-                            My ambition lies in developing end-to-end data pipelines, predictive intelligence models, and intuitive analytics dashboards that empower organizations to make evidence-based, high-impact decisions.
+                            My objective is to engineer scalable data pipelines, predictive intelligence systems, and interactive analytics dashboards that empower organizations to make high-impact, evidence-based decisions.
                         </p>
                         <div class="bio-highlights">
                             <div class="highlight-item">
-                                <i class="fa-solid fa-check-circle text-accent"></i>
-                                <span>Strong foundation in database management &amp; software principles</span>
+                                <i class="fa-solid fa-circle-check text-accent-cyan"></i>
+                                <span>Strong foundation in database systems &amp; software principles</span>
                             </div>
                             <div class="highlight-item">
-                                <i class="fa-solid fa-check-circle text-accent"></i>
-                                <span>Advanced training in Neural Networks, Machine Learning &amp; AI</span>
+                                <i class="fa-solid fa-circle-check text-accent-cyan"></i>
+                                <span>Advanced training in Neural Networks, ML &amp; AI Algorithms</span>
                             </div>
                             <div class="highlight-item">
-                                <i class="fa-solid fa-check-circle text-accent"></i>
+                                <i class="fa-solid fa-circle-check text-accent-cyan"></i>
                                 <span>Passionate about data storytelling, BI &amp; business problem-solving</span>
                             </div>
                         </div>
@@ -249,13 +220,13 @@
                         <div class="pillar-card glass-card tilt-card fade-in">
                             <div class="pillar-icon"><i class="fa-solid fa-briefcase"></i></div>
                             <h4>Business Acumen</h4>
-                            <p>Translating complex model outputs into actionable business strategies and clear executive visualizations.</p>
+                            <p>Translating complex model outputs into actionable business strategies and executive dashboards.</p>
                         </div>
 
                         <div class="pillar-card glass-card tilt-card fade-in">
                             <div class="pillar-icon"><i class="fa-solid fa-gears"></i></div>
-                            <h4>Continuous Curiosity</h4>
-                            <p>Constantly exploring emerging neural network paradigms, NLP, and scalable data technology stacks.</p>
+                            <h4>Continuous Innovation</h4>
+                            <p>Constantly exploring emerging neural network paradigms, NLP, and scalable data stacks.</p>
                         </div>
                     </div>
                 </div>
@@ -263,7 +234,7 @@
         </section>
 
         <!-- Academic Journey Section -->
-        <section id="academic" class="section-padding bg-rose-subtle">
+        <section id="academic" class="section-padding bg-dark-subtle">
             <div class="container">
                 <div class="section-header text-center fade-in">
                     <span class="section-subtitle">Education &amp; Qualifications</span>
@@ -309,7 +280,7 @@
                             </p>
                             <div class="timeline-tags">
                                 <span class="tag">Business Analytics</span>
-                                <span class="tag">DBMS & SQL</span>
+                                <span class="tag">DBMS &amp; SQL</span>
                                 <span class="tag">Software Engineering</span>
                                 <span class="tag">Web Technologies</span>
                                 <span class="tag">C / C++</span>
@@ -335,36 +306,36 @@
                     <button class="filter-btn" data-filter="ds">Data Science &amp; ML</button>
                     <button class="filter-btn" data-filter="ai">AI &amp; Deep Learning</button>
                     <button class="filter-btn" data-filter="bi">Business Intelligence</button>
-                    <button class="filter-btn" data-filter="tech">Core Programming &amp; Web</button>
+                    <button class="filter-btn" data-filter="tech">Core Tech</button>
                 </div>
 
                 <!-- Skills Grid -->
                 <div class="skills-grid">
                     <!-- Data Science & ML -->
                     <div class="skill-card glass-card tilt-card fade-in" data-category="ds">
-                        <div class="skill-card-icon"><i class="fa-brands fa-python text-python"></i></div>
+                        <div class="skill-card-icon"><i class="fa-brands fa-python text-accent-cyan"></i></div>
                         <h3>Python Data Stack</h3>
-                        <p>Pandas, NumPy, Matplotlib, Seaborn for rigorous data manipulation, cleaning, and visual exploration.</p>
+                        <p>Pandas, NumPy, Matplotlib, Seaborn for data manipulation, cleaning, and visual exploration.</p>
                         <div class="skill-level-bar"><div class="level-fill" style="width: 90%;"></div></div>
                     </div>
 
                     <div class="skill-card glass-card tilt-card fade-in" data-category="ds">
-                        <div class="skill-card-icon"><i class="fa-solid fa-brain text-accent"></i></div>
+                        <div class="skill-card-icon"><i class="fa-solid fa-brain text-accent-purple"></i></div>
                         <h3>Machine Learning</h3>
-                        <p>Supervised &amp; Unsupervised algorithms using Scikit-Learn (Regression, Decision Trees, Clustering, Ensembles).</p>
+                        <p>Supervised &amp; Unsupervised algorithms using Scikit-Learn (Regression, Trees, Clustering, Ensembles).</p>
                         <div class="skill-level-bar"><div class="level-fill" style="width: 85%;"></div></div>
                     </div>
 
                     <!-- AI & Deep Learning -->
                     <div class="skill-card glass-card tilt-card fade-in" data-category="ai">
-                        <div class="skill-card-icon"><i class="fa-solid fa-network-wired text-accent"></i></div>
+                        <div class="skill-card-icon"><i class="fa-solid fa-network-wired text-accent-cyan"></i></div>
                         <h3>Neural Networks &amp; DL</h3>
                         <p>Fundamental understandings of Artificial Neural Networks (ANN), Convolutional &amp; Recurrent models.</p>
                         <div class="skill-level-bar"><div class="level-fill" style="width: 80%;"></div></div>
                     </div>
 
                     <div class="skill-card glass-card tilt-card fade-in" data-category="ai">
-                        <div class="skill-card-icon"><i class="fa-solid fa-comments text-accent"></i></div>
+                        <div class="skill-card-icon"><i class="fa-solid fa-comments text-accent-purple"></i></div>
                         <h3>NLP &amp; Text Mining</h3>
                         <p>Text preprocessing, sentiment analysis, tokenization, and vectorization techniques.</p>
                         <div class="skill-level-bar"><div class="level-fill" style="width: 78%;"></div></div>
@@ -372,14 +343,14 @@
 
                     <!-- Business Intelligence -->
                     <div class="skill-card glass-card tilt-card fade-in" data-category="bi">
-                        <div class="skill-card-icon"><i class="fa-solid fa-database text-accent"></i></div>
+                        <div class="skill-card-icon"><i class="fa-solid fa-database text-accent-cyan"></i></div>
                         <h3>SQL &amp; Database Systems</h3>
                         <p>Relational database architecture, complex query writing, joins, aggregations, and DBMS concepts.</p>
                         <div class="skill-level-bar"><div class="level-fill" style="width: 88%;"></div></div>
                     </div>
 
                     <div class="skill-card glass-card tilt-card fade-in" data-category="bi">
-                        <div class="skill-card-icon"><i class="fa-solid fa-chart-column text-accent"></i></div>
+                        <div class="skill-card-icon"><i class="fa-solid fa-chart-column text-accent-purple"></i></div>
                         <h3>Business Intelligence &amp; Analytics</h3>
                         <p>Transforming raw transactional data into key performance indicators (KPIs) and interactive reports.</p>
                         <div class="skill-level-bar"><div class="level-fill" style="width: 86%;"></div></div>
@@ -387,15 +358,15 @@
 
                     <!-- Core Programming & Web -->
                     <div class="skill-card glass-card tilt-card fade-in" data-category="tech">
-                        <div class="skill-card-icon"><i class="fa-solid fa-laptop-code text-accent"></i></div>
+                        <div class="skill-card-icon"><i class="fa-solid fa-laptop-code text-accent-cyan"></i></div>
                         <h3>C &amp; C++ Programming</h3>
-                        <p>Strong understanding of foundational programming logic, memory structures, and algorithmic problem-solving.</p>
+                        <p>Strong understanding of foundational programming logic, memory structures, and algorithmic logic.</p>
                         <div class="skill-level-bar"><div class="level-fill" style="width: 82%;"></div></div>
                     </div>
 
                     <div class="skill-card glass-card tilt-card fade-in" data-category="tech">
-                        <div class="skill-card-icon"><i class="fa-brands fa-html5 text-accent"></i></div>
-                        <h3>Web Fundamentals (HTML/CSS/JS)</h3>
+                        <div class="skill-card-icon"><i class="fa-brands fa-html5 text-accent-purple"></i></div>
+                        <h3>Web Fundamentals</h3>
                         <p>Creating responsive, modern web interfaces and presenting interactive analytical dashboards online.</p>
                         <div class="skill-level-bar"><div class="level-fill" style="width: 84%;"></div></div>
                     </div>
@@ -403,12 +374,12 @@
             </div>
         </section>
 
-        <!-- Focus Domains & Projects Showcase -->
-        <section id="projects" class="section-padding bg-rose-subtle">
+        <!-- Focus Areas & Projects Section -->
+        <section id="projects" class="section-padding bg-dark-subtle">
             <div class="container">
                 <div class="section-header text-center fade-in">
                     <span class="section-subtitle">Predictive Intelligence in Action</span>
-                    <h2 class="section-title">Focus Areas &amp; <span class="text-gradient">Projects</span></h2>
+                    <h2 class="section-title">Featured <span class="text-gradient">Projects</span></h2>
                     <div class="section-line"></div>
                 </div>
 
@@ -489,7 +460,7 @@
                     <!-- Left Column: Direct Contact Info & Social Cards -->
                     <div class="contact-info-wrapper fade-in">
                         <div class="contact-info-card glass-card tilt-card">
-                            <h3 class="contact-card-heading">Let's build something intelligent together.</h3>
+                            <h3 class="contact-card-heading">Let's build something intelligent.</h3>
                             <p class="contact-card-sub">
                                 Whether you're hiring for a Data Science role, seeking an AI intern, or discussing analytics project opportunities, I'd love to connect!
                             </p>
@@ -546,14 +517,14 @@
                         </div>
                     </div>
 
-                    <!-- Right Column: Interactive Form -->
+                    <!-- Right Column: Form -->
                     <div class="contact-form-wrapper fade-in">
                         <form id="contactForm" class="contact-form glass-card tilt-card">
-                            <h3 class="form-title"><i class="fa-solid fa-paper-plane text-accent"></i> Send a Message</h3>
+                            <h3 class="form-title"><i class="fa-solid fa-paper-plane text-accent-cyan"></i> Send a Message</h3>
                             
                             <!-- Quick Topic Pills -->
                             <div class="form-group">
-                                <label class="input-label">Select Inquiry Topic:</label>
+                                <label class="input-label">Select Topic:</label>
                                 <div class="topic-pills">
                                     <button type="button" class="topic-pill active" onclick="selectTopic(this, 'Internship Opportunity')">✨ Internship</button>
                                     <button type="button" class="topic-pill" onclick="selectTopic(this, 'Full-time Role')">🟢 Full-time Role</button>
@@ -568,14 +539,14 @@
                                     <label for="userName" class="input-label">Your Name</label>
                                     <div class="input-with-icon">
                                         <i class="fa-solid fa-user"></i>
-                                        <input type="text" id="userName" name="name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
+                                        <input type="text" id="userName" name="name" class="form-input" placeholder="e.g. Alex Morgan" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="userEmail" class="input-label">Your Email</label>
                                     <div class="input-with-icon">
                                         <i class="fa-solid fa-at"></i>
-                                        <input type="email" id="userEmail" name="email" class="form-input" placeholder="e.g. sarah@company.com" required>
+                                        <input type="email" id="userEmail" name="email" class="form-input" placeholder="e.g. alex@company.com" required>
                                     </div>
                                 </div>
                             </div>
@@ -592,11 +563,11 @@
                                 <label for="userMessage" class="input-label">Message</label>
                                 <div class="input-with-icon textarea-icon">
                                     <i class="fa-solid fa-comment-dots"></i>
-                                    <textarea id="userMessage" name="message" class="form-input" rows="4" placeholder="Hi Janhavi, we are impressed by your background in M.Sc. AI & DS..." required></textarea>
+                                    <textarea id="userMessage" name="message" class="form-input" rows="4" placeholder="Hi Janhavi, we are impressed by your M.Sc. AI & DS background..." required></textarea>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-rose btn-block btn-lg" id="submitBtn">
+                            <button type="submit" class="btn btn-cyan btn-block btn-lg" id="submitBtn">
                                 <span>Send Message</span>
                                 <i class="fa-solid fa-paper-plane"></i>
                             </button>
@@ -607,7 +578,7 @@
         </section>
     </main>
 
-    <!-- Interactive Toast Notification -->
+    <!-- Toast Notification -->
     <div id="toastNotification" class="toast-notification">
         <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
         <div class="toast-content">
@@ -617,7 +588,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-rose-subtle">
+    <footer class="footer bg-dark-subtle">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -629,9 +600,8 @@
                 </div>
 
                 <div class="footer-links">
-                    <a href="#hero">Home</a>
                     <a href="#about">About</a>
-                    <a href="#academic">Academic Journey</a>
+                    <a href="#academic">Journey</a>
                     <a href="#skills">Skills</a>
                     <a href="#projects">Projects</a>
                     <a href="#contact">Contact</a>
@@ -646,7 +616,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; <span id="currentYear"></span> Janhavi Vikas Thakare. Crafted with Rose Quartz Sparkle &amp; Precision.</p>
+                <p>&copy; <span id="currentYear"></span> Janhavi Vikas Thakare. All Rights Reserved.</p>
                 <button class="back-to-top-btn" id="backToTopBtn" aria-label="Back to top">
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
