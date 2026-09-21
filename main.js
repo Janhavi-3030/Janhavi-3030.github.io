@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
     /* --------------------------------------------------------------------------
-       1. Custom Fluid Cursor with Magnetic Aura
+       1. Downsized Fluid Cursor with Magnetic Aura
        -------------------------------------------------------------------------- */
     const cursorDot = document.getElementById('cursorDot');
     const cursorAura = document.getElementById('cursorAura');
@@ -19,15 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            // Immediate position for inner dot
+            // Immediate inner dot tracking
             cursorDot.style.left = `${mouseX}px`;
             cursorDot.style.top = `${mouseY}px`;
         });
 
-        // Smooth Lerp animation loop for aura
+        // Smooth Lerp loop for aura
         const animateCursor = () => {
-            auraX += (mouseX - auraX) * 0.15;
-            auraY += (mouseY - auraY) * 0.15;
+            auraX += (mouseX - auraX) * 0.18;
+            auraY += (mouseY - auraY) * 0.18;
             
             cursorAura.style.left = `${auraX}px`;
             cursorAura.style.top = `${auraY}px`;
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         animateCursor();
 
-        // Add hover effects for interactive elements
+        // Subtle hover state
         const hoverables = document.querySelectorAll('a, button, .tilt-card, .filter-btn, .topic-pill, .social-btn');
         hoverables.forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
@@ -52,17 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
     tiltCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // Mouse position inside card
+            const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            // Calculate rotation angles (max 12deg tilt)
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
         });
 
         card.addEventListener('mouseleave', () => {
@@ -83,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuBtn.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
         });
 
-        // Close menu when clicking nav link
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
@@ -147,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
@@ -166,10 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* --------------------------------------------------------------------------
-       6. Contact Form Simulation & Toast Notification
+       6. Form Submission Simulation & Toast Notification
        -------------------------------------------------------------------------- */
     const contactForm = document.getElementById('contactForm');
-    const toast = document.getElementById('toastNotification');
 
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
@@ -178,17 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = document.getElementById('submitBtn');
             const originalText = submitBtn.innerHTML;
 
-            // Loading state
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
 
             setTimeout(() => {
-                // Reset form
                 contactForm.reset();
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
 
-                // Show toast notification
                 showToast('Message Sent Successfully!', 'Thank you for reaching out. Janhavi will reply shortly.');
             }, 1200);
         });
@@ -216,9 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* Global Helper Functions */
-
-// Topic Pill Selection Function
+/* Global Helpers */
 function selectTopic(pillBtn, topicValue) {
     document.querySelectorAll('.topic-pill').forEach(btn => btn.classList.remove('active'));
     pillBtn.classList.add('active');
@@ -229,27 +220,23 @@ function selectTopic(pillBtn, topicValue) {
     }
 }
 
-// Copy to Clipboard Helper
 function copyToClipboard(text, btnElement) {
     navigator.clipboard.writeText(text).then(() => {
         const icon = btnElement.querySelector('i');
         const originalClass = icon.className;
 
-        icon.className = 'fa-solid fa-check text-success';
-        btnElement.classList.add('btn-copied');
+        icon.className = 'fa-solid fa-check text-accent-cyan';
 
         showToast('Copied to Clipboard!', text);
 
         setTimeout(() => {
             icon.className = originalClass;
-            btnElement.classList.remove('btn-copied');
         }, 2000);
     }).catch(err => {
         console.error('Copy failed: ', err);
     });
 }
 
-// Global Toast Display Helper
 function showToast(title, message) {
     const toast = document.getElementById('toastNotification');
     const toastTitle = document.getElementById('toastTitle');
